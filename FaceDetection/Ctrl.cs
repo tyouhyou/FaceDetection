@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FaceDetection
 {
     public class Ctrl
     {
+        public void StartWebCam()
+        {
+            WebCam cam = new WebCam();
+            cam.StartCapture();
+        }
+
         public void DetectFace(string remoteImage, string localImage)
         {
             Facial face = new Facial();

@@ -12,7 +12,7 @@ namespace FaceDetection
             Application.SetCompatibleTextRenderingDefault(false);
 
             Ctrl ctl = new Ctrl();
-            Frm frm = new Frm(ctl);
+            FrmTest frm = new FrmTest(ctl);
 
             frm.FormClosing += (o, e) =>
             {

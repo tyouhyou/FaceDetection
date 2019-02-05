@@ -1,6 +1,6 @@
 ﻿namespace FaceDetection
 {
-    partial class Frm
+    partial class FrmTest
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.btnGo = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnCam = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtRemoteImg
@@ -83,7 +84,7 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(468, 182);
+            this.btnGo.Location = new System.Drawing.Point(607, 182);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 57);
             this.btnGo.TabIndex = 5;
@@ -93,7 +94,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(147, 182);
+            this.btnClose.Location = new System.Drawing.Point(503, 182);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 57);
             this.btnClose.TabIndex = 6;
@@ -101,11 +102,22 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // Frm
+            // btnCam
+            // 
+            this.btnCam.Location = new System.Drawing.Point(40, 182);
+            this.btnCam.Name = "btnCam";
+            this.btnCam.Size = new System.Drawing.Size(75, 57);
+            this.btnCam.TabIndex = 7;
+            this.btnCam.Text = "Start Cam";
+            this.btnCam.UseVisualStyleBackColor = true;
+            this.btnCam.Click += new System.EventHandler(this.btnCam_Click);
+            // 
+            // FrmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 274);
+            this.Controls.Add(this.btnCam);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.btnBrowse);
@@ -113,7 +125,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRemoteImg);
-            this.Name = "Frm";
+            this.Name = "FrmTest";
             this.Text = "Frm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -129,5 +141,6 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnCam;
     }
 }

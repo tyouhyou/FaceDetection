@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace FaceDetection
 {
-    public partial class Frm : Form
+    public partial class FrmTest : Form
     {
         private Ctrl control;
 
-        public Frm(Ctrl control)
+        public FrmTest(Ctrl control)
         {
             InitializeComponent();
 
@@ -41,6 +41,11 @@ namespace FaceDetection
         private void btnGo_Click(object sender, EventArgs e)
         {
             control.DetectFace(txtRemoteImg.Text, txtLocalImg.Text);
+        }
+
+        private void btnCam_Click(object sender, EventArgs e)
+        {
+            control.StartWebCam();
         }
     }
 }
