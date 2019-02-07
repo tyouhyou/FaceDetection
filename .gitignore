@@ -3,12 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+FaceDetection/PrivateDefines.xml
+
 # User-specific files
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-PrivateDedefines.xml
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
