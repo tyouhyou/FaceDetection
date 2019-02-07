@@ -2,6 +2,7 @@
 <private>
 	<azureface>
 		<subscriptionkey>61d1c47ffc014dc7935a603180f8c2e3</subscriptionkey>
-		<endpoint>https://australiaeast.api.cognitive.microsoft.com/</endpoint>
+    <facehost>https://australiaeast.api.cognitive.microsoft.com</facehost>
+		<endpoint>https://australiaeast.api.cognitive.microsoft.com/face/v1.0/detect</endpoint>
 	</azureface>
 </private>

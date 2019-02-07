@@ -94,7 +94,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(503, 182);
+            this.btnClose.Location = new System.Drawing.Point(37, 182);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 57);
             this.btnClose.TabIndex = 6;
@@ -104,7 +104,7 @@
             // 
             // btnCam
             // 
-            this.btnCam.Location = new System.Drawing.Point(40, 182);
+            this.btnCam.Location = new System.Drawing.Point(433, 182);
             this.btnCam.Name = "btnCam";
             this.btnCam.Size = new System.Drawing.Size(75, 57);
             this.btnCam.TabIndex = 7;

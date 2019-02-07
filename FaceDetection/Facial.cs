@@ -7,6 +7,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace FaceDetection
 {
@@ -17,7 +20,7 @@ namespace FaceDetection
             FaceAttributeType.Emotion,
         };
 
-        private FaceClient Client
+        private FaceClient FacialClient
         {
             get;
             set;
@@ -25,11 +28,38 @@ namespace FaceDetection
 
         public Facial()
         {
-            Client = new FaceClient(new ApiKeyServiceClientCredentials(PrivateDefines.FaceSubscriptionKey),
+            FacialClient = new FaceClient(new ApiKeyServiceClientCredentials(PrivateDefines.FaceSubscriptionKey),
                                     new DelegatingHandler[] { })
             {
-                Endpoint = PrivateDefines.FaceEndPoint
+                Endpoint = PrivateDefines.FaceHost
             };
+        }
+
+        public async Task DetectImage(Image img)
+        {
+            var imageConverter = new ImageConverter();
+            var imageData = (byte[])imageConverter.ConvertTo(img, typeof(byte[]));
+
+            using (var httpClient = new HttpClient())
+            using (var content = new ByteArrayContent(imageData))
+            {
+                content.Headers.Add("Ocp-Apim-Subscription-Key", PrivateDefines.FaceSubscriptionKey);
+                content.Headers.Add("Content-Type", "application/octet-stream");
+
+                var query = new QueryBuilder();
+                query.Add("returnFaceAttributes", "emotion");
+                query.Add("returnFaceId", "true");
+                query.Add("returnFaceLandmarks", "false");
+
+                var uri = PrivateDefines.FaceEndPoint + query.Get();
+                Trace.WriteLine(uri);
+
+                var response = await httpClient.PostAsync(uri, content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                // TODO: remove trace and show result on screen.
+                Trace.WriteLine(responseContent);
+            }
         }
 
         public async Task DetectLocalImage(string path)
@@ -38,7 +68,7 @@ namespace FaceDetection
             {
                 using (Stream stream = File.OpenRead(path))
                 {
-                    IList<DetectedFace> faces = await Client.Face.DetectWithStreamAsync(stream, true, false, FaceAttributes);
+                    IList<DetectedFace> faces = await FacialClient.Face.DetectWithStreamAsync(stream, true, false, FaceAttributes);
                     ShowFaceResult(faces);
                 }
             }
@@ -52,7 +82,7 @@ namespace FaceDetection
         {
             try
             {
-                IList<DetectedFace>  faces = await Client.Face.DetectWithUrlAsync(url, true, false, FaceAttributes);
+                IList<DetectedFace>  faces = await FacialClient.Face.DetectWithUrlAsync(url, true, false, FaceAttributes);
                 ShowFaceResult(faces);
             }
             catch(Exception e)

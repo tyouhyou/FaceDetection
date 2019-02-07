@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Net.Http;
 
 namespace FaceDetection
 {
@@ -10,7 +12,12 @@ namespace FaceDetection
     {
         public void StartWebCam()
         {
+            Facial face = new Facial();
             WebCam cam = new WebCam();
+            cam.VideoCaptured += async (object sender, VideoCaptureEventArgs e) =>
+            {
+                await face.DetectImage(e.Frame);
+            };
             cam.StartCapture();
         }
 
