@@ -36,6 +36,7 @@
             this.btnGo = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnCam = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtRemoteImg
@@ -84,11 +85,11 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(607, 182);
+            this.btnGo.Location = new System.Drawing.Point(526, 182);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 57);
             this.btnGo.TabIndex = 5;
-            this.btnGo.Text = "Go";
+            this.btnGo.Text = "Detect Image";
             this.btnGo.UseVisualStyleBackColor = true;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
@@ -104,7 +105,7 @@
             // 
             // btnCam
             // 
-            this.btnCam.Location = new System.Drawing.Point(433, 182);
+            this.btnCam.Location = new System.Drawing.Point(607, 182);
             this.btnCam.Name = "btnCam";
             this.btnCam.Size = new System.Drawing.Size(75, 57);
             this.btnCam.TabIndex = 7;
@@ -112,11 +113,22 @@
             this.btnCam.UseVisualStyleBackColor = true;
             this.btnCam.Click += new System.EventHandler(this.btnCam_Click);
             // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(404, 182);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 57);
+            this.btnTest.TabIndex = 8;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // FrmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 274);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnCam);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnGo);
@@ -142,5 +154,6 @@
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnCam;
+        private System.Windows.Forms.Button btnTest;
     }
 }

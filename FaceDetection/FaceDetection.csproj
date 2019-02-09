@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ctrl.cs" />
+    <Compile Include="FaceData.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="PrivateDefines.cs" />
     <Compile Include="DialogInProcess.cs">
       <SubType>Form</SubType>

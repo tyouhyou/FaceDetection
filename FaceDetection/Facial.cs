@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Diagnostics;
-using System.Net.Http.Headers;
 
 namespace FaceDetection
 {
@@ -35,8 +33,10 @@ namespace FaceDetection
             };
         }
 
-        public async Task DetectImage(Image img)
+        public async Task<List<Face>> DetectImage(Image img)
         {
+            List<Face> rst = null;
+
             var imageConverter = new ImageConverter();
             var imageData = (byte[])imageConverter.ConvertTo(img, typeof(byte[]));
 
@@ -48,18 +48,20 @@ namespace FaceDetection
 
                 var query = new QueryBuilder();
                 query.Add("returnFaceAttributes", "emotion");
-                query.Add("returnFaceId", "true");
+                query.Add("returnFaceId", "false");
                 query.Add("returnFaceLandmarks", "false");
 
-                var uri = PrivateDefines.FaceEndPoint + query.Get();
-                Trace.WriteLine(uri);
+                var uri = PrivateDefines.FaceEndPoint + query.Get();;
 
                 var response = await httpClient.PostAsync(uri, content);
                 string responseContent = await response.Content.ReadAsStringAsync();
 
-                // TODO: remove trace and show result on screen.
-                Trace.WriteLine(responseContent);
+                Logger.Log(responseContent);
+
+                rst = FaceReponseParser.ParseViaRE(responseContent);
             }
+
+            return rst;
         }
 
         public async Task DetectLocalImage(string path)
