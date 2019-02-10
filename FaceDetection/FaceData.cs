@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using OpenCvSharp;
 
 namespace FaceDetection
 {
@@ -47,7 +48,7 @@ namespace FaceDetection
                     {
                         Id = id
                         ,
-                        Location = rect
+                        Frame = rect
                         ,
                         Attributes = new FaceAttributes
                         {
@@ -87,7 +88,7 @@ namespace FaceDetection
         public string Id { set; get; }
 
         [JsonProperty("faceRectangle")]
-        public FaceRectangle Location{set;get;}
+        public FaceRectangle Frame { set; get; }
 
         [JsonProperty("faceAttributes")]
         public FaceAttributes Attributes { set; get; }
@@ -107,6 +108,10 @@ namespace FaceDetection
         [JsonProperty("height")]
         public int Height { set; get; }
 
+        public Rect Rectangle { set; get; }
+
+        public Point TopLeft { set; get; }
+        
         private static readonly string RE_KV = @"""(?<key>\w+)"":(?<value>\d+)(,|\}|$)";
         private static readonly Regex re_kv = new Regex(RE_KV, RegexOptions.Compiled);
 
@@ -141,6 +146,8 @@ namespace FaceDetection
                         break;
                 }
             }
+            Rectangle = new Rect(Left, Top, Width, Height);
+            TopLeft = new Point(Left, Top);
         }
     }
 

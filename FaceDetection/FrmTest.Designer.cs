@@ -85,7 +85,7 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(526, 182);
+            this.btnGo.Location = new System.Drawing.Point(490, 182);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 57);
             this.btnGo.TabIndex = 5;
@@ -115,7 +115,7 @@
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(404, 182);
+            this.btnTest.Location = new System.Drawing.Point(200, 182);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 57);
             this.btnTest.TabIndex = 8;

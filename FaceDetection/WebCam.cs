@@ -1,10 +1,8 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using OpenCvSharp;
 
 namespace FaceDetection
 {
@@ -25,6 +23,8 @@ namespace FaceDetection
             get;
             set;
         }
+
+        private ConcurrentQueue<List<Face>> FaceQueue = new ConcurrentQueue<List<Face>>();
         
         public event EventHandler<VideoCaptureEventArgs> VideoCaptured;
 
@@ -41,19 +41,32 @@ namespace FaceDetection
             Height = height;
         }
 
+        public void PushFaceInQue(List<Face> faces)
+        {
+            FaceQueue.Enqueue(faces);
+        }
+
         public void StartCapture(int camNum = 0)
         {
+            List<Face> faces = null;
+            Scalar scRect = new Scalar(0, 0, 255);
+            Scalar scText = new Scalar(255, 255, 255);
+
             Cv2.NamedWindow(WindowName, WindowMode.Normal);
             Cv2.ResizeWindow(WindowName, Width, Height);
+            Cv2.StartWindowThread();
 
             VideoCapture videoCapture = OpenCvSharp.VideoCapture.FromCamera(camNum);
             videoCapture.Set(CaptureProperty.FrameWidth, Width);
             videoCapture.Set(CaptureProperty.FrameHeight, Height);
 
+            var tm = DateTime.Now;
+            DateTime tmP = new DateTime(1971,1,1);
+
             try
             {
                 Mat frame = new Mat();
-
+                
                 bool success = true;
                 while (success)
                 {
@@ -69,9 +82,31 @@ namespace FaceDetection
                         break;
                     }
 
+                    List<Face> fs = null;
+                    if (FaceQueue.TryDequeue(out fs))
+                    {
+                        Logger.Log("Detection returns faces.");
+                        faces = fs;
+                    }
+
+                    if (null != faces)
+                    { 
+                        foreach (var face in faces)
+                        {
+                            Cv2.Rectangle(frame, face.Frame.Rectangle, scRect);
+                            Cv2.PutText(frame, "Happiness: " + face.Attributes.Emotion.Happiness, face.Frame.TopLeft, HersheyFonts.HersheyPlain, 1, scText);
+                        }
+                    }
+
                     Cv2.ImShow(WindowName, frame);
 
-                    OnVideoCaptured(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame));
+                    // To avoid the limit rate of Azure on Free Account, detect every 3 seconds. TODO: lift it
+                    if (((tm = DateTime.Now) - tmP).TotalSeconds > 3 )
+                    {
+                        tmP = tm;
+                        Logger.Log("On event video capturred");
+                        OnVideoCaptured(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame));
+                    }
                 }
             }
             finally

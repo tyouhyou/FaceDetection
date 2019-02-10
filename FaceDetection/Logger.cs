@@ -11,7 +11,7 @@ namespace FaceDetection
     /// <summary>
     /// A simple log writer
     /// </summary>
-    public class Logger
+    static class Logger
     {
         private static string LogFile
         {
@@ -21,13 +21,14 @@ namespace FaceDetection
 
         static Logger()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var dir = Directory.GetCurrentDirectory();
             LogFile = Path.Combine(dir, "log.txt");
         }
 
         public static void Log(string msg)
         {
-            using (StreamWriter sw = new StreamWriter(LogFile, true))
+            using (FileStream fs = new FileStream(LogFile, FileMode.OpenOrCreate | FileMode.Append))
+            using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + " -> " + msg);
             }
